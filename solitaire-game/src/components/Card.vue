@@ -8,17 +8,17 @@
     <v-row class="custom-row">
       <v-col cols="2" class="custom-col">
         <div class="top-row-container">
-          <p class="card-value">Q</p>
-          <img class="min-image" src="./../assets/maca-min.png" />
+          <p class="card-value">{{ cardValue }}</p>
+          <img class="small-image" :src="smallImageUrl" />
         </div>
       </v-col>
       <v-col cols="8" class="custom-col">
-        <img class="center-image" src="./../assets/maca-kiz-iskambil-pls.jpg" />
+        <img class="center-image" :src="centerImage" />
       </v-col>
       <v-col cols="2" class="custom-col">
         <div class="bottom-row-container">
-          <img class="min-image" src="./../assets/maca-min-ters.png" />
-          <p class="card-value rotate-bottom-value" >Q</p>
+          <img class="small-image rotate" :src="smallImage" />
+          <p class="card-value rotate">{{ cardValue }}</p>
         </div>
       </v-col>
     </v-row>
@@ -28,6 +28,20 @@
 <script>
 export default {
   name: "Card",
+  props: ["cardValue", "smallImage", "centerImage"],
+  data() {
+    return {
+      smallImageUrl: "",
+    };
+  },
+  watch: {
+    smallImage: {
+      handler(val) {
+        this.smallImageUrl = `'./../assets/'${val}`;
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 
@@ -58,7 +72,7 @@ export default {
   left: 4px;
   line-height: 22px;
 }
-.min-image {
+.small-image {
   height: 20px;
 }
 .center-image {
@@ -67,7 +81,7 @@ export default {
   height: 160px;
   width: 100px;
 }
-.rotate-bottom-value{
-  transform: rotate(180deg)
+.rotate {
+  transform: rotate(180deg);
 }
 </style>

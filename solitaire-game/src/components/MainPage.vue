@@ -1,6 +1,18 @@
 <template>
   <div class="green-table">
-      <card/>
+    <v-row>
+      <v-col
+         v-for="n in 2"
+         :key="n"
+       >
+      <card 
+        :cardValue="'10'"
+        :centerImage="'maca.jpg'"
+        :smallImage="'maca-min.png'"
+      />
+
+      </v-col>
+    </v-row>
   </div>
 </template>
 
