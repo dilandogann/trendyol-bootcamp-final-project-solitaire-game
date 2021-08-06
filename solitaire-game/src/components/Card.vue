@@ -1,37 +1,27 @@
 <template>
   <v-card
-    class="main-card d-flex align-stretch mb-6"
+    class="main-card d-flex align-stretch"
     color="grey lighten-2"
     flat
     tile
   >
-    <div class="row">
-      <div class="col-sm-3 card-header-footer">
-        <div class="rank">K</div>
-        <div class="rank small"></div>
-      </div>
-      <div class="col-sm-6">
-        <v-img
-          class="white--text align-end"
-          height="130px"
-          weight="80px"
-          src="./../assets/maca-buyuk.webp"
-        >
-        </v-img>
-      </div>
-      <div class="col-sm-3 card-header-footer">
-        <div>K</div>
-        <div>
-          <v-img
-            class="white--text align-end"
-            height="10px"
-            weight="10px"
-            src="./../assets/maca-min.png"
-          >
-          </v-img>
+    <v-row class="custom-row">
+      <v-col cols="2" class="custom-col">
+        <div class="top-row-container">
+          <p class="card-value">Q</p>
+          <img class="min-image" src="./../assets/maca-min.png" />
         </div>
-      </div>
-    </div>
+      </v-col>
+      <v-col cols="8" class="custom-col">
+        <img class="center-image" src="./../assets/maca-kiz-iskambil-pls.jpg" />
+      </v-col>
+      <v-col cols="2" class="custom-col">
+        <div class="bottom-row-container">
+          <img class="min-image" src="./../assets/maca-min-ters.png" />
+          <p class="card-value rotate-bottom-value" >Q</p>
+        </div>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
@@ -43,16 +33,41 @@ export default {
 
 <style>
 .main-card {
-  width: 134px;
-  height: 210px;
+  height: fit-content;
+  margin-top: 100px;
+  width: 150px;
 }
-.card-header-footer {
-  height: 40px;
+.card-value {
+  font-size: 24px;
 }
-.card-middle {
-  height: 130px;
+.custom-row {
+  margin: 0 !important;
 }
-.small{
-    background-image: url('./../assets/maca-min.png')
+.custom-col {
+  padding: 0 !important;
+}
+.bottom-row-container {
+  position: absolute;
+  bottom: 6px;
+  right: 4px;
+  line-height: 18px;
+}
+.top-row-container {
+  position: absolute;
+  top: 2px;
+  left: 4px;
+  line-height: 22px;
+}
+.min-image {
+  height: 20px;
+}
+.center-image {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 160px;
+  width: 100px;
+}
+.rotate-bottom-value{
+  transform: rotate(180deg)
 }
 </style>
