@@ -1,15 +1,15 @@
 <template>
-<main-page/>
+<main-floor/>
 </template>
 
 <script>
-import MainPage from './components/MainPage.vue';
+import MainFloor from './views/MainFloor.vue';
 
 export default {
   name: 'App',
 
   components: {
-    MainPage
+    MainFloor
   },
 
   data: () => ({

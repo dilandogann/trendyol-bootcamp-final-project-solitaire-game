@@ -1,27 +1,15 @@
 <template>
   <div class="green-table">
-    <v-row>
-      <v-col
-         v-for="n in 2"
-         :key="n"
-       >
-      <card 
-        :cardValue="'10'"
-        :centerImage="'maca.jpg'"
-        :smallImage="'maca-min.png'"
-      />
-
-      </v-col>
-    </v-row>
+    <play-ground/>
   </div>
 </template>
 
 <script>
-import Card from './Card.vue';
+import PlayGround from '../components/PlayGround.vue'
 
 export default {
-  components: { Card },
-  name: "MainPage",
+  components: { PlayGround },
+  name: "MainFloor",
 };
 </script>
 

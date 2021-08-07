@@ -8,8 +8,8 @@
     <v-row class="custom-row">
       <v-col cols="2" class="custom-col">
         <div class="top-row-container">
-          <p class="card-value">{{ cardValue }}</p>
-          <img class="small-image" :src="smallImageUrl" />
+          <p :class="flatValueClass">{{ cardValue }}</p>
+          <img class="small-image" src="./../assets/spades-min.png" />
         </div>
       </v-col>
       <v-col cols="8" class="custom-col">
@@ -17,8 +17,8 @@
       </v-col>
       <v-col cols="2" class="custom-col">
         <div class="bottom-row-container">
-          <img class="small-image rotate" :src="smallImage" />
-          <p class="card-value rotate">{{ cardValue }}</p>
+          <img class="small-image rotate" src="./../assets/spades-min.png" />
+          <p :class="rotatedValueClass">{{ cardValue }}</p>
         </div>
       </v-col>
     </v-row>
@@ -27,21 +27,21 @@
 
 <script>
 export default {
-  name: "Card",
-  props: ["cardValue", "smallImage", "centerImage"],
+  name: "PlayingCard",
+  props: ["cardValue",  "centerImage"],
   data() {
     return {
-      smallImageUrl: "",
+      oneLetterValues:[2,3,4,5,6,7,8,9]
     };
   },
-  watch: {
-    smallImage: {
-      handler(val) {
-        this.smallImageUrl = `'./../assets/'${val}`;
-      },
-      deep: true,
+  computed:{
+    flatValueClass(){
+      return this.oneLetterValues.includes(this.cardValue) ? "one-letter-flat-value card-value" : "card-value"
     },
-  },
+    rotatedValueClass(){
+      return this.oneLetterValues.includes(this.cardValue) ? "one-letter-rotated-value card-value rotate" : "card-value rotate"
+    }
+  }
 };
 </script>
 
@@ -52,7 +52,8 @@ export default {
   width: 150px;
 }
 .card-value {
-  font-size: 24px;
+  font-size: 20px;
+  font-weight:600;
 }
 .custom-row {
   margin: 0 !important;
@@ -83,5 +84,11 @@ export default {
 }
 .rotate {
   transform: rotate(180deg);
+}
+.one-letter-flat-value{
+  margin-left: 4px;
+}
+.one-letter-rotated-value{
+  margin-right: 4px;
 }
 </style>
