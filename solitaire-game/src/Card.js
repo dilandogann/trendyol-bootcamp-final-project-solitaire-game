@@ -1,6 +1,8 @@
 export default class Card {
- constructor(value, centerImg) {
-      this.value = value;
-      this.centerImg=centerImg
+
+    constructor(value, image) {
+        this.value = value;
+        this.image = image
+        this.showFront = true
     }
 }
