@@ -1,13 +1,25 @@
 <template>
-  <v-row>
-    <v-col v-for="(card, index) in cards" :key="index">
-      <playing-card
-        :cardValue="card.value"
-        :image="card.image"
-        :showFront="card.showFront"
-      />
-    </v-col>
-  </v-row>
+  <v-container>
+    <v-row>
+      <v-col cols="1"></v-col>
+      <v-col
+        v-for="(playingCardSuit,suitIndex) in playingCards"
+        :key="suitIndex"
+        >
+        <v-row
+          v-for="playingCard in playingCardSuit"
+          :key="playingCard.id"
+          >
+          <playing-card
+            :cardValue="playingCard.value"
+            :image="playingCard.image"
+            :showFront="playingCard.showFront"
+          />
+        </v-row>
+      </v-col>
+      <v-col cols="1"></v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -80,15 +92,22 @@ export default {
         if (filtered.length === 0) return card;
       });
     },
-    chunkPlayingCards(){
-        const overflowingItems= this.playingCards.slice(-4);
-        this.playingCards =this.playingCards.slice(0,this.playingCards.length-4)
-        this.playingCards =_.chunk(this.playingCards, 5);
-        for(let i =0;i<overflowingItems.length;i++){
-            this.playingCards[i].push(overflowingItems[i])
-        }
+    chunkPlayingCards() {
+      const overflowingItems = this.playingCards.slice(-4);
+      this.playingCards = this.playingCards.slice(
+        0,
+        this.playingCards.length - 4
+      );
+      this.playingCards = _.chunk(this.playingCards, 5);
+      for (let i = 0; i < overflowingItems.length; i++) {
+        this.playingCards[i].push(overflowingItems[i]);
+      }
     },
     initializeGame() {},
+    calculateLength(val) {
+      console.log(val);
+      return val.size;
+    },
   },
 };
 </script>

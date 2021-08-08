@@ -2,14 +2,14 @@
   <div>
     <template v-if="showFront">
         <v-row>
-          <v-col cols="12">
-            <img :src="image" />
+          <v-col cols="cols">
+            <img class="card-image" :src="image" />
           </v-col>
         </v-row>
     </template>
     <template v-else>
       <v-row>
-        <v-col cols="12">
+        <v-col cols="cols">
           <img class="card-image" src="./../assets/hearts-back.jpg" />
         </v-col>
       </v-row>
@@ -23,20 +23,8 @@ export default {
   props: ["cardValue", "image", "showFront"],
   data() {
     return {
-      oneLetterValues: [2, 3, 4, 5, 6, 7, 8, 9],
+      cols:12,
     };
-  },
-  computed: {
-    flatValueClass() {
-      return this.oneLetterValues.includes(this.cardValue)
-        ? "one-letter-flat-value card-value"
-        : "card-value";
-    },
-    rotatedValueClass() {
-      return this.oneLetterValues.includes(this.cardValue)
-        ? "one-letter-rotated-value card-value rotate"
-        : "card-value rotate";
-    },
   },
 };
 </script>
