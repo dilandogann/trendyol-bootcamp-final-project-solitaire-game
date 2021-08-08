@@ -4,6 +4,6 @@ export default class Card {
         this.value = value;
         this.image = image
         this.id = id
-        this.showFront = true
+        this.showFront = false
     }
 }

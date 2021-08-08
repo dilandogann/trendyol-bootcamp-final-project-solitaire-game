@@ -1,16 +1,14 @@
 <template>
-  <v-container>
+  <v-container style="margin-top:100px">
     <v-row>
       <v-col cols="1"></v-col>
       <v-col
-        v-for="(playingCardSuit,suitIndex) in playingCards"
+        v-for="(playingCardSuit, suitIndex) in playingCards"
         :key="suitIndex"
-        >
-        <v-row
-          v-for="playingCard in playingCardSuit"
-          :key="playingCard.id"
-          >
+      >
+        <v-row v-for="playingCard in playingCardSuit" :key="playingCard.id">
           <playing-card
+            class="playingCard"
             :cardValue="playingCard.value"
             :image="playingCard.image"
             :showFront="playingCard.showFront"
@@ -34,6 +32,7 @@ export default {
   name: "PlayGround",
   data() {
     return {
+      index: 1,
       id: 1,
       cards: [],
       playingCards: [],
@@ -41,14 +40,17 @@ export default {
     };
   },
   created() {
-    this.cardValues = cardValues;
-    this.initializeCards();
-    this.shuffleCards();
-    this.getRandomPlayGroundCards();
-    this.getRemainingFloorCards();
-    this.chunkPlayingCards();
+    this.initializeGame();
   },
   methods: {
+    initializeGame() {
+      this.initializeCards();
+      this.shuffleCards();
+      this.getRandomPlayGroundCards();
+      this.getRemainingFloorCards();
+      this.chunkPlayingCards();
+      this.showFrontSideOfLastCardsInChunks();
+    },
     //It creates 8 copy of each playing cards
     initializeCards() {
       for (let i = 0; i < 8; i++) {
@@ -57,7 +59,7 @@ export default {
     },
     //It creates 13 playing cards
     createPlayingCard() {
-      const cards = this.cardValues.map((cardItem) => {
+      const cards = cardValues.map((cardItem) => {
         return new Card(cardItem.value, cardItem.image, this.id++);
       });
       this.cards.push(...cards);
@@ -69,7 +71,7 @@ export default {
     },
     //It randomly picks 54 cards for playing ground
     getRandomPlayGroundCards() {
-      // lower and upper value
+      // lower and upper bounds
       let lower = 0;
       let upper = 103;
 
@@ -83,8 +85,8 @@ export default {
         randomIndexes.push(randomNum);
       }
     },
+    //Get remaining cards for floorCards
     getRemainingFloorCards() {
-      //Get remaining cards for floorCards
       this.floorCards = this.cards.filter((card) => {
         let filtered = this.playingCards.filter(
           (playCard) => playCard.id === card.id
@@ -92,6 +94,7 @@ export default {
         if (filtered.length === 0) return card;
       });
     },
+    //Creating 6-6-6-6-5-5-5-5-5-5 chunks of playingCards array
     chunkPlayingCards() {
       const overflowingItems = this.playingCards.slice(-4);
       this.playingCards = this.playingCards.slice(
@@ -103,14 +106,19 @@ export default {
         this.playingCards[i].push(overflowingItems[i]);
       }
     },
-    initializeGame() {},
-    calculateLength(val) {
-      console.log(val);
-      return val.size;
+    //It changes last card's of chunks showFront property in order to showing front side
+    showFrontSideOfLastCardsInChunks() {
+      for (let i = 0; i < this.playingCards.length; i++) {
+        const length = this.playingCards[i].length;
+        this.playingCards[i][length - 1].showFront = true;
+      }
     },
   },
 };
 </script>
 
 <style>
+.playingCard {
+  margin-bottom: -8.5vw;
+}
 </style>
