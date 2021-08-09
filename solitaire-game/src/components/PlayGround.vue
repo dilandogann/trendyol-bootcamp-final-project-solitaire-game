@@ -148,7 +148,7 @@ export default {
       const chunkLength=this.playingCards[chunkIndex].length;
       const lastCardOfChunk=this.playingCards[chunkIndex][chunkLength-1]
         if(!lastCardOfChunk.showFront)
-          card.showFront=true
+          lastCardOfChunk.showFront=true
     }
   },
 };
