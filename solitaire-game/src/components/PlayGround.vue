@@ -143,6 +143,13 @@ export default {
         this.playingCards[i].push(card);
       }
     },
+    //It makes last card of given chunk visible 
+    showLastElementWhenAllChunkIsReversed(chunkIndex){
+      const chunkLength=this.playingCards[chunkIndex].length;
+      const lastCardOfChunk=this.playingCards[chunkIndex][chunkLength-1]
+        if(!lastCardOfChunk.showFront)
+          card.showFront=true
+    }
   },
 };
 </script>
