@@ -1,34 +1,53 @@
 <template>
-  <v-container style="margin-top:100px">
+  <v-container style="margin-top: 100px">
     <v-row>
       <v-col cols="1"></v-col>
       <v-col
         v-for="(playingCardSuit, suitIndex) in playingCards"
         :key="suitIndex"
       >
-        <v-row v-for="playingCard in playingCardSuit" :key="playingCard.id">
-          <playing-card
-            class="playingCard"
-            :cardValue="playingCard.value"
-            :image="playingCard.image"
-            :showFront="playingCard.showFront"
-          />
-        </v-row>
+        <draggable
+          :list="playingCardSuit"
+          :move="checkMove"
+          draggable=".js-draggable-file-list-item"
+          animation="200"
+        >
+          <v-row v-for="playingCard in playingCardSuit" :key="playingCard.id">
+            <playing-card
+              :draggable="playingCard.showFront"
+              :class="
+                playingCard.showFront
+                  ? 'js-draggable-file-list-item cursor playingCard'
+                  : 'playingCard'
+              "
+              :card="playingCard"
+              animation="200"
+            />
+          </v-row>
+        </draggable>
       </v-col>
       <v-col cols="1"></v-col>
     </v-row>
+    <div
+      class="floorCards cursor"
+      v-for="card in floorCards"
+      :key="card.id"
+      @click="dealFloorCards"
+    >
+      <playing-card :card="card"> </playing-card>
+    </div>
   </v-container>
 </template>
 
 <script>
+import draggable from "vuedraggable";
 import _ from "lodash";
-
 import PlayingCard from "../components/PlayingCard.vue";
 import cardValues from "../cardValues";
 import Card from "../Card";
 
 export default {
-  components: { PlayingCard },
+  components: { PlayingCard, draggable },
   name: "PlayGround",
   data() {
     return {
@@ -113,12 +132,31 @@ export default {
         this.playingCards[i][length - 1].showFront = true;
       }
     },
+    checkMove: function (evt) {
+      return evt.draggedContext.element.showFront;
+    },
+    //When user clicks deal one card to each shuffle
+    dealFloorCards() {
+      for (let i = 0; i < 10; i++) {
+        const card = this.floorCards.shift();
+        card.showFront = true;
+        this.playingCards[i].push(card);
+      }
+    },
   },
 };
 </script>
 
 <style>
+.cursor{
+    cursor: pointer;
+}
 .playingCard {
-  margin-bottom: -8.5vw;
+  margin-bottom: -4.5vw;
+}
+.floorCards {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
 }
 </style>
